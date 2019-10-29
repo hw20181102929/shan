@@ -1,15 +1,24 @@
-//
-//  main.c
-//  shan
-//
-//  Created by s20181102929 on 2019/10/29.
-//  Copyright © 2019 s20181102929. All rights reserved.
-//
-
-#include <stdio.h>
-
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    printf("Hello, World!\n");
-    return 0;
+void BFS ( LGraph Graph, Vertex S, void (*Visit)(Vertex) )
+{
+    PtrToAdjVNode p[MaxVertexNum];
+    int front=0;
+    int rear=0;
+    Visit(S);
+    Visited[S]=true;
+    p[++rear]=Graph->G[S].FirstEdge;
+    while(front != rear)
+    {
+        PtrToAdjVNode t;
+        t=p[++front];
+        while(t!=NULL)
+        {
+            if(Visited[t->AdjV]==false)
+            {
+                Visit(t->AdjV);
+                Visited[t->AdjV]=true;
+                p[++rear]=t;
+            }
+            t=t->Next;
+        }
+    }
 }
